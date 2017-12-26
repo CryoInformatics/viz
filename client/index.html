@@ -25,6 +25,9 @@
                     console.log('status change callback response is ', response);
                     if(response.status === 'unknown'){
                         console.log('the user has not authenticated');
+                    }else if (response.status === "connected"){
+                        console.log('the user has logged in');
+                        console.log('PLACE SUCCESSFUL LOGIN REDIRECT HERE');
                     }
                 };
 
