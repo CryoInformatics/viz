@@ -17,6 +17,14 @@
                     version: 'v2.11'
                 });
 
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+
+                statusChangeCallback = response => {
+                    console.log('response is ', response);
+                };
+
                 FB.AppEvents.logPageView();
 
             };
@@ -47,7 +55,6 @@
 
     <div id="app">
         {{ message }}
-        {{loginStatus()}}
     </div>
 </body>
 <script src="app.js"></script>
