@@ -1,0 +1,12 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "live"]
+	url = ../site.git
+	fetch = +refs/heads/*:refs/remotes/live/*
+[remote "live2"]
+	url = ./site.git
+	fetch = +refs/heads/*:refs/remotes/live2/*
