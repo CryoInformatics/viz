@@ -3,7 +3,9 @@ var app = new Vue({
     data: {
         message: 'Hello Vue!',
         loginStatus: () =>{
-            console.log('login status called!');
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
         }
     }
 })
