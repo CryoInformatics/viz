@@ -22,11 +22,17 @@
                 });
 
                 statusChangeCallback = response => {
+                    console.log('status change callback response is ', response);
                     if(response.status === 'unknown'){
-                        console.log('the user either refuses to or is not logged in');
-                        FB.login();
+                        console.log('the user has not authenticated');
                     }
                 };
+
+                function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
 
                 FB.AppEvents.logPageView();
 
@@ -41,19 +47,9 @@
             }(document, 'script', 'facebook-jssdk'));    
     </script>
 
-<div class="container">
-    <label>
-        <b>Username</b>
-    </label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label>
-        <b>Password</b>
-    </label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Login</button>
-    <input type="checkbox" checked="checked"> Remember me
+<div class="login">
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
 </div>
 
     <div id="app">
