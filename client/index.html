@@ -22,7 +22,9 @@
                 });
 
                 statusChangeCallback = response => {
-                    console.log('response is ', response);
+                    if(response.status === 'unknown'){
+                        console.log('the user either refuses to or is not logged in');
+                    }
                 };
 
                 FB.AppEvents.logPageView();
