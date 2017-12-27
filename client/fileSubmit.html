@@ -46,9 +46,13 @@
     .flex-centered {
             display: flex;
             justify-content: center;
-            margin-top: 180px;
+            margin-top:0px;
+            margin-right:10px;
+            margin-bottom:10px;
+            margin-left:10px;
             height: 46px;
-        }
+    }
+
 </style>
 
 <div id="login">
@@ -76,12 +80,16 @@
         </div>
     </div>
 
+    
     <div class="flex-centered">
-        <div class="col-md-offset-4 col-md-8">
+        <div class="col-md-offset-3 col-md-8">
+            <div class="col-md-offset-0 col-md-0">
+                <img src="Logomakr_2AFMYh.png" alt="eyeLogo" style="width:422px;height:250px;" align="middle">
+            </div>
             <textarea rows="8" cols="50">
                 {{translatedText}}
             </textarea>
-            <div class="col-md-offset-2 col-md-8">
+            <div class="col-md-offset-6 col-md-8">
                 <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
             </div>
         </div>

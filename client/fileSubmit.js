@@ -18,6 +18,12 @@ var fileSubmit = new Vue({
             this.language = "german"
         },
         translate: function() {
+
+            //this should take the inputted file on the /main page and create and api request with this function
+            //the file is inputted in filesubmit line 75 (at this point)
+            //having trouble conceptualizing how to get the file into this function
+
+
             //here whould be where the function detects the above language (this.language), and translates using the google api accordingly
             //the response should become translated text, which will be rendered to the page when filled
         },
