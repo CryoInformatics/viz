@@ -32,25 +32,25 @@
          border-radius: 6px;
     }   
     .box-set {
-    background: #d3d3d4;
-    overflow: auto;
+        background: #d3d3d4;
+        overflow: auto;
     }
     .box {
-    background: #31c0dc;
-    float: left;
-    margin: 1.858736059%;
-    padding: 20px 0;
-    text-align: center;
-    width: 29.615861214%;
+        background: #31c0dc;
+        float: left;
+        margin: 1.858736059%;
+        padding: 20px 0;
+        text-align: center;
+        width: 29.615861214%;
     }
     .flex-centered {
-            display: flex;
-            justify-content: center;
-            margin-top:0px;
-            margin-right:10px;
-            margin-bottom:10px;
-            margin-left:10px;
-            height: 46px;
+        display: flex;
+        justify-content: center;
+        margin-top:0px;
+        margin-right:10px;
+        margin-bottom:10px;
+        margin-left:10px;
+        height: 46px;
     }
     .container-table {
         display: table;
@@ -59,6 +59,7 @@
         display: table-cell;
         vertical-align: middle;
     }
+    
 
 </style>
 
@@ -79,12 +80,13 @@
     <font color="#00CED1">
     <div class="flex-centered">
         <div class="col-md-offset-2 col-md-8">
-            <input name="originalImage" type="file">
+            <input type="file" id="originalImage">
         </div>
         
         <div class="col-md-offset-4 col-md-8">
-            <button type="submit" v-on:click="translate" >Translate</button>
+            <button type="submit" v-on:click="translate(originalImage)" >Translate</button>
         </div>
+        
     </div>
 
 <div class="container container-table">
