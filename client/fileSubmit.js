@@ -10,15 +10,20 @@ var fileSubmit = new Vue({
     methods: {
         french: function () {
             this.language = "french"
+            console.log(this.language)
         },
         spanish: function () {
             this.language = "spanish"
+            console.log(this.language)
         },
         german : function () {
             this.language = "german"
+            console.log(this.language)
         },
         translate: function() {
 
+            this.translatedText = `${this.language} translated text`;
+            console.log(this.translatedText);
             //this should take the inputted file on the /main page and create and api request with this function
             //the file is inputted in filesubmit line 75 (at this point)
             //having trouble conceptualizing how to get the file into this function
