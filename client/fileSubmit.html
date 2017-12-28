@@ -79,12 +79,29 @@
     </div>
     <font color="#00CED1">
     <div class="flex-centered">
-        <div class="col-md-offset-2 col-md-8">
-            <input type="file" id="originalImage">
-        </div>
+        
+        <input type="file" onchange="previewFile()">
+        <br>
+        <img src="" height="200" alt="Image preview..." id="inputtedPicture" align="left">
+        <script>
+        function previewFile() {
+                var preview = document.querySelector('img');
+                var file = document.querySelector('input[type=file]').files[0];
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                    
+                }
+            }
+        </script>
         
         <div class="col-md-offset-4 col-md-8">
-            <button type="submit" v-on:click="translate(originalImage)" >Translate</button>
+            <button type="submit" v-on:click="translate(inputtedPicture.src)" >Translate</button>
         </div>
         
     </div>
