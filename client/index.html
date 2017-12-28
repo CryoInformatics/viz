@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body style="background-image:url(https://wallpapercave.com/wp/s8WKUPm.jpg)" >
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '169435300330243',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.11'
+            });
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+            statusChangeCallback = response => {
+                console.log('status change callback response is ', response);
+                if (response.status === 'unknown') {
+                    console.log('the user has not authenticated');
+                } else if (response.status === "connected") {
+                    console.log('the user has logged in');
+                    console.log('PLACE SUCCESSFUL LOGIN REDIRECT HERE');
+                }
+            };
+
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));    
+    </script>
+
+    
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0 0;
+        }
+        .flex-centered {
+            display: flex;
+            justify-content: center;
+            margin-top: 180px;
+            height: 46px;
+        }
+    </style>
+
+
+
+<font color="#00CED1">
+    <div class="flex-centered">
+        <div class="col-md-offset-3 col-md-5">
+            <div class="login" id="login">
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                </fb:login-button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-offset-3 col-md-6">
+        <img src="Logomakr_2AFMYh.png" alt="Eye see you" style="width:600px;height:450px;" align="middle">
+    </div>
+    
+</body>
+<script type="text/javascript" src="login.js"></script>
+</html>

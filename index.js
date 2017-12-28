@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 //when client sends a get request to the main page, login html is rendered - paul
 app.get('/', (req, res) => 
-res.sendFile(path.join(__dirname + '/client/login.html')));
+res.sendFile(path.join(__dirname + '/client/index.html')));
 
 // put this route to allow myself to see the fileSubmit page, can change as needed - paul
 app.get('/main', (req, res) => 
