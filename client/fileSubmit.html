@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,128 +10,172 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="85882324100-0t2klmlhjpm9roctu4r95rg1jk7hp308.apps.googleusercontent.com">
 </head>
+
 <body style="background-image:url(https://wallpapercave.com/wp/s8WKUPm.jpg)">
+    <style>
+        html,
+        body {
+            color: #fff;
+            font: 600 14px/24px "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", Sans-Serif;
+            height: 100%;
+            margin: 0;
+            padding: 0 0;
+        }
 
-<style>
-    html,
-    body {
-        color: #fff;
-        font: 600 14px/24px "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", Sans-Serif;
-        height: 100%;
-        margin: 0;
-        padding: 0 0;
-    }
-    .logoutLblPos{
-        position:fixed;
-        right:10px;
-        top:5px;
-    }
-    .box-set,
+        .logoutLblPos {
+            position: fixed;
+            right: 10px;
+            top: 5px;
+        }
 
-    .box {
-         border-radius: 6px;
-    }   
-    .box-set {
-        background: #d3d3d4;
-        overflow: auto;
-    }
-    .box {
-        background: #31c0dc;
-        float: left;
-        margin: 1.858736059%;
-        padding: 20px 0;
-        text-align: center;
-        width: 29.615861214%;
-    }
-    .flex-centered {
-        display: flex;
-        justify-content: center;
-        margin-top:0px;
-        margin-right:10px;
-        margin-bottom:10px;
-        margin-left:10px;
-        height: 46px;
-    }
-    .container-table {
-        display: table;
-    }
-    .vertical-center-row {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    
+        .box-set {
+            background: #d3d3d4;
+            overflow: auto;
+        }
 
-</style>
+        .box {
+            background: #31c0dc;
+            float: left;
+            margin: 1.858736059%;
+            padding: 20px 0;
+            text-align: center;
+            width: 29.615861214%;
+            color: whitesmoke;
+        }
 
-<div id="login">
+        .flex-centered {
+            display: flex;
+            float: middle;
+            justify-content: center;
+            margin-top: 0px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            height: 46px;
+        }
+
+        .container-table {
+            display: table;
+        }
+
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+    <!-- <div id="login">
     <font color="#00CED1">
         <form align="right" name="logout">
             <button type="submit" v-on:click="logout">LogOut</button>
         </form>
     </font>
-</div>
-
-<div id="fileSubmit">
-    <div class="box-set">
-        <figure class="box" v-on:click="french">French</figure>
-        <figure class="box" v-on:click="german">German</figure>
-        <figure class="box" v-on:click="spanish">Spanish</figure>
-    </div>
+</div> -->
     <font color="#00CED1">
-    <div class="flex-centered">
-        
-        <input type="file" onchange="previewFile()">
-        <br>
-        <img src="" height="200" alt="Image preview..." id="inputtedPicture" align="left">
-        <script>
-        function previewFile() {
-                var preview = document.querySelector('img');
-                var file = document.querySelector('input[type=file]').files[0];
-                var reader = new FileReader();
-
-                reader.addEventListener("load", function () {
-                    preview.src = reader.result;
-                }, false);
-
-                if (file) {
-                    reader.readAsDataURL(file);
-                    
-                }
-            }
-        </script>
-        
-        <div class="col-md-offset-4 col-md-8">
-            <button type="submit" v-on:click="translate(inputtedPicture.src)" >Translate</button>
-        </div>
-        
-    </div>
-
-<div class="container container-table">
-    <div class="row vertical-center-row">
-    <div class="flex-centered">
-        <div class="col-md-offset-3 col-md-8">
-            <div class="col-md-offset-0 col-md-0">
-                <img src="Logomakr_2AFMYh.png" alt="eyeLogo" style="width:422px;height:250px;" align="middle">
-            </div>
-            <textarea rows="8" cols="50">
-                {{translatedText}}
-            </textarea>
-            <div class="container container-table">
-                <div class="row vertical-center-row">
-            <div class="col-md-offset-1 col-md-8">
-                <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
-            </div>
+        <div class="flex-centered">
+            <div class="col-md-offset-4 col-md-5">
+                <div class="login" id="login">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
-            </div>    
+            </div>
         </div>
-    </div>
-    </div>
-</div>
-</div>
-</font>
+        <div id="fileSubmit">
+            <h3 align="middle">
+                Translate From
+            </h3>
+            <div class="box-set">
+                <figure class="box" v-on:click="french">French</figure>
+                <figure class="box" v-on:click="english">English</figure>
+                <figure class="box" v-on:click="spanish">Spanish</figure>
+            </div>
+            <h3 align="middle">
+                Translate To
+            </h3>
+            <div class="box-set">
+                <figure class="box" v-on:click="arabicTranslation">Arabic</figure>
+                <figure class="box" v-on:click="englishTranslation">English</figure>
+                <figure class="box" v-on:click="spanishTranslation">Spanish</figure>
+            </div>
+            <font color="#00CED1">
+                <input type="file" onchange="previewFile()">
+                <img src="" height="200" alt="Image preview..." id="inputtedPicture" align="left">
+                <div class="flex-centered">
+                    <div class="col-md-offset-8 col-md-8" class="position-absolute" align="right">
+                        <button type="submit" v-on:click="translate(inputtedPicture.src)">Translate</button>
+                    </div>
+                    <script>
+                        function previewFile() {
+                            var preview = document.querySelector('img');
+                            var file = document.querySelector('input[type=file]').files[0];
+                            var reader = new FileReader();
+                            reader.addEventListener("load", function () {
+                                preview.src = reader.result;
+                            }, false);
+                            if (file) {
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                        var profile;
+                        function onSignIn(googleUser) {
+                            // Useful data for your client-side scripts:
+                            profile = googleUser.getBasicProfile();
+                            // console.log('userProfile ', profile);
+                            // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                            // console.log('Full Name: ' + profile.getName());
+                            // console.log('Given Name: ' + profile.getGivenName());
+                            // console.log('Family Name: ' + profile.getFamilyName());
+                            // console.log("Image URL: " + profile.getImageUrl());
+                            // console.log("Email: " + profile.getEmail());
+                            // The ID token you need to pass to your backend:
+                            var id_token = googleUser.getAuthResponse().id_token;
+                            console.log("ID Token: " + id_token);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/user', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onload = function () {
+                                console.log('Signed in as: ' + xhr.responseText);
+                            };
+                            // xhr.send('idtoken=' + id_token);
+                            //ABOVE SENDS THE USER TOKEN,
+                            //HOWEVER GOOGLE RECOMMENDS THAT YOU USE THE CLIENT ID AND VERIFY THE ID ON SERVER SIDE
+                            //THIS VERIFICATION HAS ALREADY BEEN INCLUDED ON SERVER SIDE
+                            //IT IS NOT WORKING AT THE MOMENT, WE WILL STICK WITH USER PROFILE INFO FOR NOW
+                            xhr.send('email=' + profile.getEmail());
+                        }
+                    </script>
+                </div>
+                <div class="container container-table">
+                    <div class="row vertical-center-row">
+                        <div class="flex-centered">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div class="col-md-offset-0 col-md-0">
+                                    <img src="Logomakr_2AFMYh.png" alt="eyeLogo" style="width:422px;height:250px;" align="middle">
+                                </div>
+                                <textarea rows="8" cols="50">{{translatedText}}</textarea>
+                                <div class="container container-table">
+                                    <div class="row vertical-center-row">
+                                        <div class="col-md-offset-1 col-md-8">
+                                            <div>
+                                                <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
+                                            </div>
+                                            <input type="text" id="apiKeyInput">
+                                            <div>
+                                                <button v-on:click="saveKey(document.getElementById('apiKeyInput').value)">Add My Translation Key</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </font>
+        </div>
 </body>
-
 <script src="fileSubmit.js"></script>
 <script src="login.js"></script>
+
 </html>
