@@ -50,25 +50,28 @@ var fileSubmit = new Vue({
             var vm = this
             console.log(this.userApiKey, "this is the user api key124151252")
             console.log(vm.userApiKey, "this is the vm user api key124151252")
-            this.$http.post(`https://vision.googleapis.com/v1/images:annotate?key=${this.userApiKey}`, {
-                "requests": [
-                    {
-                        "image": {
-                            "content": encodedFileString
-                        },
-                        "features": [
-                            {
-                                "type": "DOCUMENT_TEXT_DETECTION"
-                            }
-                        ]
-                    }
-                ]
-            })
+            // this.$http.post(`https://vision.googleapis.com/v1/images:annotate?key=${this.userApiKey}`, {
+            //     "requests": [
+            //         {
+            //             "image": {
+            //                 "content": encodedFileString
+            //             },
+            //             "features": [
+            //                 {
+            //                     "type": "DOCUMENT_TEXT_DETECTION"
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // })
+            this.$http.post('/pictureText', {fileString: encodedFileString})
                 .then((response) => {
-                    vm.untranslatedText = response.data.responses[0].textAnnotations[0].description
-                    textToTranslate = response.data.responses[0].textAnnotations[0].description
+                    console.log(response.data, "this is the muh fuckin response")
+                    vm.untranslatedText = response.data
+                    textToTranslate = response.data
                     axios.post('/translate', { "foreign": textToTranslate, "language": vm.language, "targetLanguage": vm.translateTo })
                         .then((res) => {
+                            console.log(res);
                             vm.translatedText = res.data.translations[0].translation;
                         })
                 })

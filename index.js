@@ -3,6 +3,7 @@ However, you will want to sign up to watson developer network and change the use
 */
 //added by devin
 //named translations because of the name of database table
+var axios = require('axios')
 const Translations = require('./database/postgres')
 var watson = require('watson-developer-cloud');
 var GoogleAuth = require('google-auth-library');
@@ -13,16 +14,20 @@ var language_translator = watson.language_translator({
     "password": "J7Wn4KLrbgpK",
     version: 'v2'
 });
+
 const express = require('express')
 const bodyParser = require('body-parser')
 var path = require('path');
 const app = express()
+app.use(express.static('keys.js'))
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 //serves files in client folder, Don't delete - paul
 app.use(express.static(__dirname + '/client'));
 // app.use(express.static(__dirname + '/../node_modules'));
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
+// app.use(bodyParser.urlencoded({
+//     extended: false
+// }))
 app.use(bodyParser.json())
 //when client sends a get request to the main page, login html is rendered - paul
 app.get('/', (req, res) =>
@@ -75,20 +80,43 @@ app.post('/translate', (req, res) => {
     });
 }
 ),
-    app.post('/saveTranslation', (req, res) => {
-        const userEmail = req.body.userProfile.U3;
-        const userTranslation = req.body.translatedText;
-        const userId = JSON.parse(req.body.userProfile.Eea.slice(-6));
-        Translations.sync().then(function () {
-            return Translations.create({
-                id: userId,
-                email: userEmail,
-                translation: userTranslation
-            });
-        }).catch((err) => {
-            console.log(err);
-        })
+app.post('/saveTranslation', (req, res) => {
+    const userEmail = req.body.userProfile.U3;
+    const userTranslation = req.body.translatedText;
+    const userId = JSON.parse(req.body.userProfile.Eea.slice(-6));
+    Translations.sync().then(function () {
+        return Translations.create({
+            id: userId,
+            email: userEmail,
+            translation: userTranslation
+        });
+    }).catch((err) => {
+        console.log(err);
     })
+}),
+app.post('/pictureText', (req, res) => {
+    
+    axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB_SyO7zQ5Kd-K_N3OVdZ9Yt_4Jl4RE0l0', {
+                "requests": [
+                    {
+                        "image": {
+                            "content": req.body.fileString
+                        },
+                        "features": [
+                            {
+                                "type": "DOCUMENT_TEXT_DETECTION"
+                            }
+                        ]
+                    }
+                ]
+            }).then((result) => {
+                console.log(result.data.responses[0].textAnnotations[0].description, "this is result!@!@")
+                res.send(result.data.responses[0].textAnnotations[0].description)
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+})
 //this function will also give us all translations 
 //require Translations from the database file wherever this is called
 // Translations.findAll({}).then((data) => {
