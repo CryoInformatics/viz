@@ -7,7 +7,7 @@ const sequelize = new Sequelize('rvuugvij', 'rvuugvij', 'lxhGCxsqDWZRA8GueC27mR3
     min: 0,
     idle: 10000
   },
-});
+}); 
 var Translations = sequelize.define('translations', {
   id: {
     type: Sequelize.INTEGER,
