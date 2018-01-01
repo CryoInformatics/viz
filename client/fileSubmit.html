@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="keys.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -68,33 +69,33 @@
         }
     </style>
     <!-- <div id="login">
-    <font color="#00CED1">
+        <font color="#00CED1">
         <form align="right" name="logout">
             <button type="submit" v-on:click="logout">LogOut</button>
         </form>
     </font>
 </div> -->
-    <font color="#00CED1">
-        <div class="flex-centered">
-            <div class="col-md-offset-4 col-md-5">
-                <div class="login" id="login">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
+<font color="#00CED1">
+    <div class="flex-centered">
+        <div class="col-md-offset-4 col-md-5">
+            <div class="login" id="login">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </div>
-        <div id="fileSubmit">
-            <h3 align="middle">
-                Translate From
-            </h3>
-            <div class="box-set">
-                <figure class="box" v-on:click="french">French</figure>
-                <figure class="box" v-on:click="english">English</figure>
-                <figure class="box" v-on:click="spanish">Spanish</figure>
-            </div>
-            <h3 align="middle">
-                Translate To
-            </h3>
-            <div class="box-set">
+    </div>
+    <div id="fileSubmit">
+        <h3 align="middle">
+            Translate From
+        </h3>
+        <div class="box-set">
+            <figure class="box" v-on:click="french">French</figure>
+            <figure class="box" v-on:click="english">English</figure>
+            <figure class="box" v-on:click="spanish">Spanish</figure>
+        </div>
+        <h3 align="middle">
+            Translate To
+        </h3>
+        <div class="box-set">
                 <figure class="box" v-on:click="arabicTranslation">Arabic</figure>
                 <figure class="box" v-on:click="englishTranslation">English</figure>
                 <figure class="box" v-on:click="spanishTranslation">Spanish</figure>
@@ -145,7 +146,7 @@
                             //IT IS NOT WORKING AT THE MOMENT, WE WILL STICK WITH USER PROFILE INFO FOR NOW
                             xhr.send('email=' + profile.getEmail());
                         }
-                    </script>
+                        </script>
                 </div>
                 <div class="container container-table">
                     <div class="row vertical-center-row">
@@ -161,10 +162,6 @@
                                             <div>
                                                 <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
                                             </div>
-                                            <input type="text" id="apiKeyInput">
-                                            <div>
-                                                <button v-on:click="saveKey(document.getElementById('apiKeyInput').value)">Add My Translation Key</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -174,8 +171,9 @@
                 </div>
             </font>
         </div>
-</body>
-<script src="fileSubmit.js"></script>
-<script src="login.js"></script>
-
-</html>
+    </body>
+    <script src="fileSubmit.js"></script>
+    <script src="login.js"></script>
+    
+    </html>
+    
