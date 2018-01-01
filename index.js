@@ -3,6 +3,7 @@ However, you will want to sign up to watson developer network and change the use
 */
 //added by devin
 //named translations because of the name of database table
+
 var axios = require('axios')
 const Translations = require('./database/postgres')
 var watson = require('watson-developer-cloud');
@@ -95,8 +96,7 @@ app.post('/saveTranslation', (req, res) => {
     })
 }),
 app.post('/pictureText', (req, res) => {
-    
-    axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB_SyO7zQ5Kd-K_N3OVdZ9Yt_4Jl4RE0l0', {
+    axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.MYAPIKEY}`, {
                 "requests": [
                     {
                         "image": {
@@ -110,7 +110,6 @@ app.post('/pictureText', (req, res) => {
                     }
                 ]
             }).then((result) => {
-                console.log(result.data.responses[0].textAnnotations[0].description, "this is result!@!@")
                 res.send(result.data.responses[0].textAnnotations[0].description)
             })
             .catch((err)=> {

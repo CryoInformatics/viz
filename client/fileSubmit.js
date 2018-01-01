@@ -66,12 +66,11 @@ var fileSubmit = new Vue({
             // })
             this.$http.post('/pictureText', {fileString: encodedFileString})
                 .then((response) => {
-                    console.log(response.data, "this is the muh fuckin response")
                     vm.untranslatedText = response.data
                     textToTranslate = response.data
                     axios.post('/translate', { "foreign": textToTranslate, "language": vm.language, "targetLanguage": vm.translateTo })
                         .then((res) => {
-                            console.log(res);
+                            
                             vm.translatedText = res.data.translations[0].translation;
                         })
                 })
