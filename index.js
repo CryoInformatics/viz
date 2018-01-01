@@ -15,7 +15,7 @@ var language_translator = watson.language_translator({
     "password": "J7Wn4KLrbgpK",
     version: 'v2'
 });
-
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 var path = require('path');
