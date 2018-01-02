@@ -1,4 +1,3 @@
-//allows you to use axios in the client
 Vue.prototype.$http = axios
 var index = new Vue({
     el: '#index',
@@ -11,10 +10,9 @@ var index = new Vue({
         userApiKey: ''
     },
     methods: {
-        /*The three methods below are directly linked to their relevant boxes on the "main" page (index),
+        /*The six methods below are directly linked to their relevant boxes on the "main" page (index),
         when clicked they will change the language to their relevant language which you can then use to determine
         which language to translate from
-        
         YOU MUST CLICK THE BUTTON TO SELECT A LANGUAGE BEFORE TRANSLATION WILL WORK
         */
         french: function () {
@@ -50,20 +48,6 @@ var index = new Vue({
             var vm = this
             console.log(this.userApiKey, "this is the user api key124151252")
             console.log(vm.userApiKey, "this is the vm user api key124151252")
-            // this.$http.post(`https://vision.googleapis.com/v1/images:annotate?key=${this.userApiKey}`, {
-            //     "requests": [
-            //         {
-            //             "image": {
-            //                 "content": encodedFileString
-            //             },
-            //             "features": [
-            //                 {
-            //                     "type": "DOCUMENT_TEXT_DETECTION"
-            //                 }
-            //             ]
-            //         }
-            //     ]
-            // })
             this.$http.post('/pictureText', {fileString: encodedFileString})
                 .then((response) => {
                     vm.untranslatedText = response.data
@@ -77,10 +61,6 @@ var index = new Vue({
         },
         saveTranslation: function () {
             axios.post('/saveTranslation', { "translatedText": this.translatedText, "userProfile": profile })
-        },
-        saveKey: function (apiKey) {
-            this.userApiKey = apiKey;
-            console.log(this.userApiKey)
         },
         profileSet: function (profile) {
             this.profile = profile;
