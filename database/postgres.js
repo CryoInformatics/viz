@@ -8,21 +8,21 @@ const sequelize = new Sequelize('rvuugvij', 'rvuugvij', 'lxhGCxsqDWZRA8GueC27mR3
     idle: 10000
   },
 });
-
 var Translations = sequelize.define('translations', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true
   },
-  user_id: {
-    type: Sequelize.INTEGER
-  },
   translation: {
     type: Sequelize.STRING
   },
+  user_id: {
+    type: Sequelize.INTEGER,
+    references: 'users',
+    referencesKey: 'id'
+  }
 });
-
-var User = sequelize.define('user', {
+var Users = sequelize.define('users', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true
@@ -30,22 +30,14 @@ var User = sequelize.define('user', {
   email: {
     type: Sequelize.STRING
   },
+  profile_name: {
+    type: Sequelize.STRING
+  }
 });
 
-// Translations.belongsTo('user')
+Users.hasMany(Translations)
 
-sequelize.authenticate().then(() => {
-  console.log("Success!");
-  //   Translations.sync({ force: true }).then(function () {
-  //     return Translations.create({
-  //       id: '0111',
-  //       email: 'testemail@example.com',
-  //       translation: 'despacito bitch'
-  //     });
-  //   });
-  // }).catch((err) => {
-  //   console.log(err);
-});
+sequelize.authenticate();
+
 module.exports = Translations;
-//I know for sure that translations must be exported to index.js file 
-//exporting Translations will give us access to the translations schema created in this file
+module.exports = Users;

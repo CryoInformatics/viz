@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="keys.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -68,21 +67,14 @@
             vertical-align: middle;
         }
     </style>
-    <!-- <div id="login">
-        <font color="#00CED1">
-        <form align="right" name="logout">
-            <button type="submit" v-on:click="logout">LogOut</button>
-        </form>
-    </font>
-</div> -->
-<font color="#00CED1">
-    <div class="flex-centered">
-        <div class="col-md-offset-4 col-md-5">
-            <div class="login" id="login">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <font color="#00CED1">
+        <div class="flex-centered">
+            <div class="col-md-offset-4 col-md-5">
+                <div class="login" id="login">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>  
             </div>
         </div>
-    </div>
     <div id="index">
         <h3 align="middle">
             Translate From
@@ -121,30 +113,12 @@
                         }
                         var profile;
                         function onSignIn(googleUser) {
-                            // Useful data for your client-side scripts:
                             profile = googleUser.getBasicProfile();
-                            // console.log('userProfile ', profile);
-                            // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-                            // console.log('Full Name: ' + profile.getName());
-                            // console.log('Given Name: ' + profile.getGivenName());
-                            // console.log('Family Name: ' + profile.getFamilyName());
-                            // console.log("Image URL: " + profile.getImageUrl());
-                            // console.log("Email: " + profile.getEmail());
-                            // The ID token you need to pass to your backend:
                             var id_token = googleUser.getAuthResponse().id_token;
-                            console.log("ID Token: " + id_token);
                             var xhr = new XMLHttpRequest();
                             xhr.open('POST', '/user', true);
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr.onload = function () {
-                                console.log('Signed in as: ' + xhr.responseText);
-                            };
                             xhr.send('idtoken=' + id_token);
-                            //ABOVE SENDS THE USER TOKEN,
-                            //HOWEVER GOOGLE RECOMMENDS THAT YOU USE THE CLIENT ID AND VERIFY THE ID ON SERVER SIDE
-                            //THIS VERIFICATION HAS ALREADY BEEN INCLUDED ON SERVER SIDE
-                            //IT IS NOT WORKING AT THE MOMENT, WE WILL STICK WITH USER PROFILE INFO FOR NOW
-                            // xhr.send('email=' + profile.getEmail());
                         }
                         </script>
                 </div>

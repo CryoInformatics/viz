@@ -1,10 +1,9 @@
 /*this is watson api set up, do not change the URL, require statement, or version number
 However, you will want to sign up to watson developer network and change the username and password
 */
-//added by devin
-//named translations because of the name of database table
-var axios = require('axios')
-const Translations = require('./database/postgres')
+var axios = require('axios');
+const Translations = require('./database/postgres');
+const Users = require('./database/postgres');
 var watson = require('watson-developer-cloud');
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
@@ -22,47 +21,25 @@ const app = express()
 app.use(express.static('keys.js'))
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-//serves files in client folder, Don't delete - paul
 app.use(express.static(__dirname + '/client'));
-// app.use(express.static(__dirname + '/../node_modules'));
-// app.use(bodyParser.urlencoded({
-//     extended: false
-// }))
 app.use(bodyParser.json())
-//when client sends a get request to the main page, login html is rendered - paul
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname + '/client/index.html')));
 
 app.post('/user', (req, res) => {
-    console.log('user successfully posted to server');
-    //THIS IS THE USER EMAIL
-    //THE USER EMAIL CAN BE STORED INTO THE DATABASE
-    //***************************************************** */
-    // console.log(req.body, "this is REQ.BODY");
-    //***************************************************** */
     var client = new auth.OAuth2(req.body.idtoken, '', '');
-    // THIS IS FOR TOKEN IDENTIFICATION, WE WILL DEVELOP THIS OUT LATER
-    // RIGHT NOW THE USER PROFILE WILL BE PASSED INTO THE SERVER
     var ClientID = `85882324100-0t2klmlhjpm9roctu4r95rg1jk7hp308.apps.googleusercontent.com`;
     client.verifyIdToken(
         req.body.idtoken,
         ClientID,
-        // Or, if multiple clients access the backend:
-        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
         function (err, login) {
             if(err){
                 console.error(err)
             }else{
-                console.log('user authenticated on server');
                 var payload = login.getPayload();
                 var userid = payload['sub'];
             }
-            // If request specified a G Suite domain:
-            //var domain = payload['hd'];
         });
-    //added by devin
-    Translations.email = req.body.email;
-    // res.send(req.body);
 })
 app.post('/translate', (req, res) => {
     language_translator.translate({
@@ -84,18 +61,29 @@ app.post('/saveTranslation', (req, res) => {
     const userEmail = req.body.userProfile.U3;
     const userTranslation = req.body.translatedText;
     const userId = JSON.parse(req.body.userProfile.Eea.slice(-6));
+    const profile_name = req.body.userProfile.ig;
     Translations.sync().then(function () {
         return Translations.create({
-            id: userId,
             email: userEmail,
-            translation: userTranslation
+            translation: userTranslation,
+            user_id: userId
         });
     }).catch((err) => {
         console.log(err);
-    })
+    });
+    Users.sync().then(function () {
+        return Users.create({
+            id: userId,
+            email: userEmail,
+            profile_name: profile_name,
+        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }),
 app.post('/pictureText', (req, res) => {
-    axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.MYAPIKEY}`, {
+    // Add in your .env file a variable called MYAPIKEY set to your Google CloudVision API Key
+    axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.MYAPIKEY}`, { 
                 "requests": [
                     {
                         "image": {
@@ -115,12 +103,5 @@ app.post('/pictureText', (req, res) => {
                 console.log(err);
             })
 })
-//this function will also give us all translations 
-//require Translations from the database file wherever this is called
-// Translations.findAll({}).then((data) => {
-//     console.log(data);
-//  }).catch((err) => {
-//     console.log(err);
-//  });
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Viz app listening on port ${port}!`))
