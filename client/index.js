@@ -1,7 +1,7 @@
 //allows you to use axios in the client
 Vue.prototype.$http = axios
-var fileSubmit = new Vue({
-    el: '#fileSubmit',
+var index = new Vue({
+    el: '#index',
     data: {
         language: '',
         translateTo: '',
@@ -11,7 +11,7 @@ var fileSubmit = new Vue({
         userApiKey: ''
     },
     methods: {
-        /*The three methods below are directly linked to their relevant boxes on the "main" page (filesubmit),
+        /*The three methods below are directly linked to their relevant boxes on the "main" page (index),
         when clicked they will change the language to their relevant language which you can then use to determine
         which language to translate from
         
