@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <script>
+        window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '527538060953905',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.11'
+                });
+
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+
+                statusChangeCallback = response => {
+                    console.log('status change callback response is ', response);
+                    if(response.status === 'unknown'){
+                        console.log('the user has not authenticated');
+                    }else if (response.status === "connected"){
+                        console.log('the user has logged in');
+                        console.log('PLACE SUCCESSFUL LOGIN REDIRECT HERE');
+                    }
+                };
+
+                function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+
+                FB.AppEvents.logPageView();
+
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));    
+    </script>
+
+<div class="login">
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
+</div>
+
+    <div id="app">
+        {{ message }}
+    </div>
+</body>
+<script src="app.js"></script>
+</html>
