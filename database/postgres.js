@@ -1,23 +1,51 @@
-//not sure if this is right lol but i copied and pasted from docs and added my postgres connectionstring
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('rvuugvij', 'rvuugvij', 'lxhGCxsqDWZRA8GueC27mR3ayRq-Jmdb', {
+  host: 'baasu.db.elephantsql.com',
+  dialect: 'postgres',
+  pool: {
+    max: 10,
+    min: 0,
+    idle: 10000
+  },
+});
 
-const { Pool, Client } = require('pg')
-const connectionString = ''
+var Translations = sequelize.define('translations', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  },
+  user_id: {
+    type: Sequelize.INTEGER
+  },
+  translation: {
+    type: Sequelize.STRING
+  },
+});
 
-const pool = new Pool({
-  connectionString: connectionString,
-})
+var User = sequelize.define('user', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  },
+  email: {
+    type: Sequelize.STRING
+  },
+});
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
+// Translations.belongsTo('user')
 
-const client = new Client({
-  connectionString: connectionString,
-})
-client.connect()
-
-client.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  client.end()
-})
+sequelize.authenticate().then(() => {
+  console.log("Success!");
+  //   Translations.sync({ force: true }).then(function () {
+  //     return Translations.create({
+  //       id: '0111',
+  //       email: 'testemail@example.com',
+  //       translation: 'despacito bitch'
+  //     });
+  //   });
+  // }).catch((err) => {
+  //   console.log(err);
+});
+module.exports = Translations;
+//I know for sure that translations must be exported to index.js file 
+//exporting Translations will give us access to the translations schema created in this file
