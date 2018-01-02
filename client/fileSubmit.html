@@ -139,12 +139,12 @@
                             xhr.onload = function () {
                                 console.log('Signed in as: ' + xhr.responseText);
                             };
-                            // xhr.send('idtoken=' + id_token);
+                            xhr.send('idtoken=' + id_token);
                             //ABOVE SENDS THE USER TOKEN,
                             //HOWEVER GOOGLE RECOMMENDS THAT YOU USE THE CLIENT ID AND VERIFY THE ID ON SERVER SIDE
                             //THIS VERIFICATION HAS ALREADY BEEN INCLUDED ON SERVER SIDE
                             //IT IS NOT WORKING AT THE MOMENT, WE WILL STICK WITH USER PROFILE INFO FOR NOW
-                            xhr.send('email=' + profile.getEmail());
+                            // xhr.send('email=' + profile.getEmail());
                         }
                         </script>
                 </div>

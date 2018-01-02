@@ -8,7 +8,21 @@ const sequelize = new Sequelize('rvuugvij', 'rvuugvij', 'lxhGCxsqDWZRA8GueC27mR3
     idle: 10000
   },
 });
+
 var Translations = sequelize.define('translations', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  },
+  user_id: {
+    type: Sequelize.INTEGER
+  },
+  translation: {
+    type: Sequelize.STRING
+  },
+});
+
+var User = sequelize.define('user', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true
@@ -16,10 +30,10 @@ var Translations = sequelize.define('translations', {
   email: {
     type: Sequelize.STRING
   },
-  translation: {
-    type: Sequelize.STRING
-  }
 });
+
+// Translations.belongsTo('user')
+
 sequelize.authenticate().then(() => {
   console.log("Success!");
   //   Translations.sync({ force: true }).then(function () {

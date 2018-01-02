@@ -44,25 +44,31 @@ app.post('/user', (req, res) => {
     //THIS IS THE USER EMAIL
     //THE USER EMAIL CAN BE STORED INTO THE DATABASE
     //***************************************************** */
-    console.log(req.body.email, "this is email in post to user");
+    // console.log(req.body, "this is REQ.BODY");
     //***************************************************** */
-    // var client = new auth.OAuth2(req.body.idtoken, '', '');
-    //THIS IS FOR TOKEN IDENTIFICATION, WE WILL DEVELOP THIS OUT LATER
-    //RIGHT NOW THE USER PROFILE WILL BE PASSED INTO THE SERVER
-    // client.verifyIdToken(
-    //     token,
-    //     CLIENT_ID,
-    //     // Or, if multiple clients access the backend:
-    //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
-    //     function (e, login) {
-    //         var payload = login.getPayload();
-    //         var userid = payload['sub'];
-    //         // If request specified a G Suite domain:
-    //         //var domain = payload['hd'];
-    //     });
+    var client = new auth.OAuth2(req.body.idtoken, '', '');
+    // THIS IS FOR TOKEN IDENTIFICATION, WE WILL DEVELOP THIS OUT LATER
+    // RIGHT NOW THE USER PROFILE WILL BE PASSED INTO THE SERVER
+    var ClientID = `85882324100-0t2klmlhjpm9roctu4r95rg1jk7hp308`;
+    client.verifyIdToken(
+        req.body.idtoken,
+        ClientID,
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+        function (err, login) {
+            if(err){
+                console.error(err)
+            }else{
+                console.log('user authenticated on server');
+                var payload = login.getPayload();
+                var userid = payload['sub'];
+            }
+            // If request specified a G Suite domain:
+            //var domain = payload['hd'];
+        });
     //added by devin
     Translations.email = req.body.email;
-    res.send(req.body.email);
+    // res.send(req.body);
 })
 app.post('/translate', (req, res) => {
     language_translator.translate({
