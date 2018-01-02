@@ -82,7 +82,8 @@ app.post('/saveTranslation', (req, res) => {
     });
 }),
 app.post('/pictureText', (req, res) => {
-    axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.MYAPIKEY}`, {
+    // Add in your .env file a variable called MYAPIKEY set to your Google CloudVision API Key
+    axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.MYAPIKEY}`, { 
                 "requests": [
                     {
                         "image": {
