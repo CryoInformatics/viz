@@ -32,13 +32,7 @@ app.use(bodyParser.json())
 //when client sends a get request to the main page, login html is rendered - paul
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname + '/client/index.html')));
-// put this route to allow myself to see the fileSubmit page, can change as needed - paul
-app.get('/main', (req, res) =>
-    res.sendFile(path.join(__dirname + '/client/fileSubmit.html')));
-//
-// THE FOLLOWING POST REQUEST HANDLES THE USER DATA WHEN USER HAS SUCCESSFULLY SIGNED IN
-//
-//
+
 app.post('/user', (req, res) => {
     console.log('user successfully posted to server');
     //THIS IS THE USER EMAIL
@@ -49,7 +43,7 @@ app.post('/user', (req, res) => {
     var client = new auth.OAuth2(req.body.idtoken, '', '');
     // THIS IS FOR TOKEN IDENTIFICATION, WE WILL DEVELOP THIS OUT LATER
     // RIGHT NOW THE USER PROFILE WILL BE PASSED INTO THE SERVER
-    var ClientID = `85882324100-0t2klmlhjpm9roctu4r95rg1jk7hp308`;
+    var ClientID = `85882324100-0t2klmlhjpm9roctu4r95rg1jk7hp308.apps.googleusercontent.com`;
     client.verifyIdToken(
         req.body.idtoken,
         ClientID,
