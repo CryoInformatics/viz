@@ -8,7 +8,7 @@ const sequelize = new Sequelize('rvuugvij', 'rvuugvij', 'lxhGCxsqDWZRA8GueC27mR3
     idle: 10000
   },
 });
-var Translations = sequelize.define('translations', {
+const Translations = sequelize.define('translations', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true
@@ -22,7 +22,7 @@ var Translations = sequelize.define('translations', {
     referencesKey: 'id'
   }
 });
-var Users = sequelize.define('users', {
+const Users = sequelize.define('users', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true
