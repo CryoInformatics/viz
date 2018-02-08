@@ -33,7 +33,7 @@
         }
 
         .box-set {
-            background: #d3d3d4;
+            background: transparent;
             overflow: auto;
         }
 
@@ -60,14 +60,20 @@
 
         .container-table {
             display: table;
+            height: 10;
         }
 
         .vertical-center-row {
             display: table-cell;
             vertical-align: middle;
         }
+
+        .title {
+            margin-top: 20px;
+        }
+
     </style>
-    <font color="#00CED1">
+<font color="#00CED1">
         <div class="flex-centered">
             <div class="col-md-offset-4 col-md-5">
                 <div class="login" id="login">
@@ -75,30 +81,32 @@
                 </div>  
             </div>
         </div>
-    <div id="index">
-        <h3 align="middle">
+        <h1 align="center">VIZ</h1>
+        <h3 align="center">Live photo translation</h3>
+    <h6 font-size="3" align="center">Upload a photo, choose the language, then choose your translation language.</h6>
+<div id="index">
+<h6 class="title" align="middle" font color="#00CED1" padding-top="20px">
             Translate From
-        </h3>
+        </h6>
         <div class="box-set">
             <figure class="box" v-on:click="french">French</figure>
             <figure class="box" v-on:click="english">English</figure>
             <figure class="box" v-on:click="spanish">Spanish</figure>
         </div>
-        <h3 align="middle">
+        <h6 class="title" align="middle">
             Translate To
-        </h3>
+        </h6>
         <div class="box-set">
                 <figure class="box" v-on:click="arabicTranslation">Arabic</figure>
                 <figure class="box" v-on:click="englishTranslation">English</figure>
                 <figure class="box" v-on:click="spanishTranslation">Spanish</figure>
             </div>
+            <p></p>
+            <button align="right" type="submit" v-on:click="translate(inputtedPicture.src)">Translate</button>
             <font color="#00CED1">
-                <input type="file" onchange="previewFile()">
+                <p></p>
+                <input type="file" onchange="previewFile()"> 
                 <img src="" height="200" alt="Image preview..." id="inputtedPicture" align="left">
-                <div class="flex-centered">
-                    <div class="col-md-offset-8 col-md-8" class="position-absolute" align="right">
-                        <button type="submit" v-on:click="translate(inputtedPicture.src)">Translate</button>
-                    </div>
                     <script>
                         function previewFile() {
                             var preview = document.querySelector('img');
@@ -121,26 +129,18 @@
                             xhr.send('idtoken=' + id_token);
                         }
                         </script>
-                </div>
-                <div class="container container-table">
-                    <div class="row vertical-center-row">
                         <div class="flex-centered">
                             <div class="col-md-offset-2 col-md-8">
-                                <div class="col-md-offset-0 col-md-0">
-                                    <img src="Logomakr_2AFMYh.png" alt="eyeLogo" style="width:422px;height:250px;" align="middle">
-                                </div>
                                 <textarea rows="8" cols="50">{{translatedText}}</textarea>
-                                <div class="container container-table">
-                                    <div class="row vertical-center-row">
-                                        <div class="col-md-offset-1 col-md-8">
-                                            <div>
-                                                <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
-                                            </div>
+                            <div class="container container-table">
+                                <div class="row vertical-center-row">
+                                    <div class="col-md-offset-1 col-md-8">
+                                        <div>
+                                            <button type="submit" v-on:click="saveTranslation">Add to My Translations!</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </font>

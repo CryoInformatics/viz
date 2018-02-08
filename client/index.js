@@ -46,8 +46,6 @@ var index = new Vue({
             encodedFileString = file.replace("data:image/jpeg;base64,", "");
             //vm allows you to keep the this binding
             var vm = this
-            console.log(this.userApiKey, "this is the user api key124151252")
-            console.log(vm.userApiKey, "this is the vm user api key124151252")
             this.$http.post('/pictureText', {fileString: encodedFileString})
                 .then((response) => {
                     vm.untranslatedText = response.data
